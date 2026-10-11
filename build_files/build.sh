@@ -40,6 +40,7 @@ dnf5 --setopt=install_weak_deps=False -y install \
     virt-manager \
     virt-install \
     virt-viewer \
+    freerdp \
     edk2-ovmf \
     guestfs-tools
 
