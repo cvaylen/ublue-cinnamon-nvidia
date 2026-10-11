@@ -1,27 +1,92 @@
 #!/bin/bash
-
 set -ouex pipefail
 
-# Copy the contents of system_files/ of the git repo to /
 cp -avf "/ctx/system_files"/. /
 
-### Install packages
+dnf5 -y group install cinnamon-desktop
+dnf5 -y install lightdm slick-greeter   # the group pulls slick-greeter but not lightdm itself
+systemctl enable lightdm.service
+systemctl set-default graphical.target
 
-# Packages can be installed from any enabled yum repo on the image.
-# RPMfusion repos are available by default in ublue main images
-# List of rpmfusion packages can be found here:
-# https://mirrors.rpmfusion.org/mirrorlist?path=free/fedora/updates/43/x86_64/repoview/index.html&protocol=https&redirect=1
+dnf5 -y install \
+    android-tools \
+    bcc \
+    bpftop \
+    bpftrace \
+    ccache \
+    flatpak-builder \
+    git-subtree \
+    google-noto-sans-fonts \
+    nicstat \
+    numactl \
+    podman-machine \
+    podman-tui \
+    ramalama \
+    restic \
+    rclone \
+    sysprof \
+    tiptop \
+    usbmuxd \
+    waypipe \
+    zsh
 
-# this installs a package from fedora repos
-dnf5 install -y tmux
+dnf5 --setopt=install_weak_deps=False -y install \
+    qemu \
+    qemu-kvm \
+    libvirt \
+    virt-manager \
+    virt-install \
+    virt-viewer \
+    edk2-ovmf \
+    guestfs-tools
 
-# Use a COPR Example:
-#
-# dnf5 -y copr enable ublue-os/staging
-# dnf5 -y install package
-# Disable COPRs so they don't end up enabled on the final image:
-# dnf5 -y copr disable ublue-os/staging
+dnf5 config-manager addrepo --from-repofile="https://packages.microsoft.com/yumrepos/vscode/config.repo"
+dnf5 config-manager setopt vscode-yum.enabled=0
+dnf5 -y install --enable-repo="vscode-yum" code
 
-#### Example for enabling a System Unit File
+dnf5 config-manager addrepo --from-repofile="https://download.docker.com/linux/fedora/docker-ce.repo"
+dnf5 config-manager setopt docker-ce-stable.enabled=0
+dnf5 -y install --enable-repo="docker-ce-stable" \
+    containerd.io \
+    docker-buildx-plugin \
+    docker-ce \
+    docker-ce-cli \
+    docker-compose-plugin
 
+mkdir -p /etc/modules-load.d
+echo iptable_nat > /etc/modules-load.d/ip_tables.conf
+
+dnf5 config-manager addrepo --from-repofile="https://negativo17.org/repos/fedora-steam.repo"
+dnf5 config-manager setopt fedora-steam.enabled=0
+dnf5 -y install --enable-repo="fedora-steam" steam
+
+dnf5 -y install \
+    lutris \
+    gamescope \
+    mangohud.x86_64 mangohud.i686 \
+    vkBasalt.x86_64 vkBasalt.i686 \
+    gamemode \
+    winetricks \
+    vulkan-tools \
+    evtest
+
+dnf5 -y install \
+    distrobox \
+    btop \
+    nvtop \
+    fastfetch \
+    duf \
+    lm_sensors \
+    7zip 7zip-standalone \
+    fira-code-fonts \
+    vim-enhanced \
+    fish
+
+[[ -f /etc/bluetooth/input.conf ]] && sed -i 's/#UserspaceHID.*/UserspaceHID=true/' /etc/bluetooth/input.conf
+
+systemctl enable docker.socket
 systemctl enable podman.socket
+systemctl enable dx-groups.service
+systemctl enable system-flatpaks.service
+
+systemctl disable getty@tty1.service

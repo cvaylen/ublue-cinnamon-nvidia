@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+LIST=/usr/share/system-flatpaks.list
+STATE=/var/lib/system-flatpaks.sha
+SUM=$(sha256sum "$LIST" | cut -d' ' -f1)
+[[ "$(cat "$STATE" 2>/dev/null)" == "$SUM" ]] && exit 0
+
+flatpak remote-add --system --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+
+mapfile -t wanted < <(grep -vE '^\s*(#|$)' "$LIST")
+mapfile -t have < <(flatpak list --system --columns=application)
+missing=()
+for app in "${wanted[@]}"; do
+  printf '%s\n' "${have[@]}" | grep -qx "${app%%//*}" || missing+=("$app")
+done
+
+if (( ${#missing[@]} )); then
+  flatpak install --system --noninteractive flathub "${missing[@]}"
+fi
+
+echo "$SUM" > "$STATE"

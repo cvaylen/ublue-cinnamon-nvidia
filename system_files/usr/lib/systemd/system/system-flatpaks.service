@@ -1,0 +1,13 @@
+[Unit]
+Description=Install system flatpaks
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/libexec/system-flatpaks
+Restart=on-failure
+RestartSec=60
+
+[Install]
+WantedBy=multi-user.target
