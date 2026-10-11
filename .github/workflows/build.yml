@@ -71,10 +71,10 @@ jobs:
         with:
           cosign-release: 'v3.1.2'
 
-      # Newest ublue base whose signature verifies and was logged in Rekor at least 3 days ago
+      # Build from ublue's current base, pinned to a digest whose signature verifies
       - name: Verify and pin base image
         run: |
-          KEY=ublue-os.pub .github/scripts/pick-base.sh >> "$GITHUB_ENV"
+          KEY=ublue-os.pub .github/scripts/verify-base.sh >> "$GITHUB_ENV"
 
       # This actually builds the container image
       - name: Build Image
