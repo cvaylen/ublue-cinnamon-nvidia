@@ -58,6 +58,10 @@ dnf5 -y install --enable-repo="docker-ce-stable" \
 mkdir -p /etc/modules-load.d
 echo iptable_nat > /etc/modules-load.d/ip_tables.conf
 
+dnf5 config-manager addrepo --from-repofile="https://pkgs.tailscale.com/stable/fedora/tailscale.repo"
+dnf5 config-manager setopt tailscale-stable.enabled=0
+dnf5 -y install --enable-repo="tailscale-stable" tailscale
+
 dnf5 config-manager addrepo --from-repofile="https://negativo17.org/repos/fedora-steam.repo"
 dnf5 config-manager setopt fedora-steam.enabled=0
 dnf5 -y install --enable-repo="fedora-steam" steam
@@ -98,6 +102,7 @@ systemctl mask systemd-remount-fs.service
 
 systemctl enable docker.socket
 systemctl enable podman.socket
+systemctl enable tailscaled.service
 systemctl enable dx-groups.service
 systemctl enable system-flatpaks.service
 
