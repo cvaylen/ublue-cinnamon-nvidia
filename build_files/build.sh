@@ -63,6 +63,15 @@ dnf5 config-manager addrepo --from-repofile="https://pkgs.tailscale.com/stable/f
 dnf5 config-manager setopt tailscale-stable.enabled=0
 dnf5 -y install --enable-repo="tailscale-stable" tailscale
 
+# mergerfs isn't in Fedora's repos; install a pinned, checksum-verified release RPM.
+# Bump both values together (and the fc44 suffix on a Fedora release change).
+MERGERFS_VERSION=2.42.0
+MERGERFS_SHA256=5b01fba27b22f4a0b16fe4ebef335e73f47593d8c77e3813cc1cafb65d807c62
+curl -fsSLo /tmp/mergerfs.rpm \
+    "https://github.com/trapexit/mergerfs/releases/download/${MERGERFS_VERSION}/mergerfs-${MERGERFS_VERSION}-1.fc44.x86_64.rpm"
+echo "${MERGERFS_SHA256}  /tmp/mergerfs.rpm" | sha256sum -c -
+dnf5 -y install /tmp/mergerfs.rpm
+
 dnf5 config-manager addrepo --from-repofile="https://negativo17.org/repos/fedora-steam.repo"
 dnf5 config-manager setopt fedora-steam.enabled=0
 dnf5 -y install --enable-repo="fedora-steam" steam
