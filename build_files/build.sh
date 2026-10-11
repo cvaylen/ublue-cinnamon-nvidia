@@ -5,6 +5,9 @@ cp -avf "/ctx/system_files"/. /
 
 dnf5 -y group install cinnamon-desktop
 dnf5 -y install lightdm slick-greeter   # the group pulls slick-greeter but not lightdm itself
+
+dnf5 -y upgrade firefox firefox-langpacks
+
 systemctl enable lightdm.service
 systemctl set-default graphical.target
 
