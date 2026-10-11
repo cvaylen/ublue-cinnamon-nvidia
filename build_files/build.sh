@@ -72,6 +72,24 @@ curl -fsSLo /tmp/mergerfs.rpm \
 echo "${MERGERFS_SHA256}  /tmp/mergerfs.rpm" | sha256sum -c -
 dnf5 -y install /tmp/mergerfs.rpm
 
+# xmousepasteblock isn't packaged; build a pinned, checksum-verified commit (tag 1.4),
+# then remove only the build deps the base image didn't already have.
+XMPB_COMMIT=c4ee870d30af5c5a37f8d4a2eb05197ae7ec4a1e
+XMPB_SHA256=31bd571b9ae3b700c1e4151fcb93b2167afbeab34fee5ec59a3b2e55679f6d97
+XMPB_BUILD_DEPS=(gcc make pkgconf-pkg-config libX11-devel libXi-devel libev-devel)
+XMPB_NEW_DEPS=$(rpm -q "${XMPB_BUILD_DEPS[@]}" | awk '/is not installed/ {print $2}')
+dnf5 -y install libev libXi "${XMPB_BUILD_DEPS[@]}"
+curl -fsSLo /tmp/xmpb.tar.gz \
+    "https://github.com/milaq/XMousePasteBlock/archive/${XMPB_COMMIT}.tar.gz"
+echo "${XMPB_SHA256}  /tmp/xmpb.tar.gz" | sha256sum -c -
+mkdir /tmp/xmpb
+tar -xzf /tmp/xmpb.tar.gz -C /tmp/xmpb --strip-components=1
+make -C /tmp/xmpb install PREFIX=/usr
+install -Dm 0644 /tmp/xmpb/xmousepasteblock.service /usr/lib/systemd/user/xmousepasteblock.service
+if [[ -n "${XMPB_NEW_DEPS}" ]]; then
+    dnf5 -y remove ${XMPB_NEW_DEPS}
+fi
+
 dnf5 config-manager addrepo --from-repofile="https://negativo17.org/repos/fedora-steam.repo"
 dnf5 config-manager setopt fedora-steam.enabled=0
 dnf5 -y install --enable-repo="fedora-steam" steam
@@ -115,5 +133,6 @@ systemctl enable podman.socket
 systemctl enable tailscaled.service
 systemctl enable dx-groups.service
 systemctl enable system-flatpaks.service
+systemctl --global enable xmousepasteblock.service
 
 systemctl disable getty@tty1.service
