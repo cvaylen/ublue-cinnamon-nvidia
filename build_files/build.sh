@@ -77,7 +77,7 @@ dnf5 -y install /tmp/mergerfs.rpm
 XMPB_COMMIT=c4ee870d30af5c5a37f8d4a2eb05197ae7ec4a1e
 XMPB_SHA256=31bd571b9ae3b700c1e4151fcb93b2167afbeab34fee5ec59a3b2e55679f6d97
 XMPB_BUILD_DEPS=(gcc make pkgconf-pkg-config libX11-devel libXi-devel libev-devel)
-XMPB_NEW_DEPS=$(rpm -q "${XMPB_BUILD_DEPS[@]}" | awk '/is not installed/ {print $2}')
+XMPB_NEW_DEPS=$({ rpm -q "${XMPB_BUILD_DEPS[@]}" || true; } | awk '/is not installed/ {print $2}')
 dnf5 -y install libev libXi "${XMPB_BUILD_DEPS[@]}"
 curl -fsSLo /tmp/xmpb.tar.gz \
     "https://github.com/milaq/XMousePasteBlock/archive/${XMPB_COMMIT}.tar.gz"
