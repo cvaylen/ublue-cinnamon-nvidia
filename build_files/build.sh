@@ -84,6 +84,16 @@ dnf5 -y install \
 
 [[ -f /etc/bluetooth/input.conf ]] && sed -i 's/#UserspaceHID.*/UserspaceHID=true/' /etc/bluetooth/input.conf
 
+covered=$(systemd-tmpfiles --cat-config 2>/dev/null | awk '!/^#/ && NF >= 2 {print $2}' | sort -u)
+find /var/lib /var/spool -mindepth 1 -type d \
+    -not -path '/var/lib/dnf*' -not -path '/var/lib/rpm-state*' \
+    -printf '%p\t%#m\t%u\t%g\n' | sort |
+while IFS=$'\t' read -r path mode user group; do
+    grep -qxF "$path" <<<"$covered" || echo "d $path $mode $user $group -"
+done > /usr/lib/tmpfiles.d/zz-image-var.conf
+
+systemctl mask systemd-remount-fs.service
+
 systemctl enable docker.socket
 systemctl enable podman.socket
 systemctl enable dx-groups.service

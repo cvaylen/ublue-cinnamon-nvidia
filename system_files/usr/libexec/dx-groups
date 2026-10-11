@@ -1,21 +1,30 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-VER=1
+VER=2
 STATE=/etc/ublue/dx-groups
 mkdir -p /etc/ublue
 [[ "$(cat "$STATE" 2>/dev/null)" == "$VER" ]] && exit 0
 
+groups=()
 for group in docker libvirt; do
   if ! grep -q "^$group:" /etc/group; then
-    grep "^$group:" /usr/lib/group >> /etc/group
+    if grep -q "^$group:" /usr/lib/group; then
+      grep "^$group:" /usr/lib/group >> /etc/group
+    else
+      echo "group $group not found, skipping" >&2
+      continue
+    fi
   fi
+  groups+=("$group")
 done
 
-mapfile -t wheel_users < <(getent group wheel | cut -d: -f4 | tr ',' '\n')
-for user in "${wheel_users[@]}"; do
-  [[ -n "$user" ]] || continue
-  usermod -aG docker,libvirt "$user"
-done
+if (( ${#groups[@]} )); then
+  mapfile -t wheel_users < <(getent group wheel | cut -d: -f4 | tr ',' '\n')
+  for user in "${wheel_users[@]}"; do
+    [[ -n "$user" ]] || continue
+    usermod -aG "$(IFS=,; echo "${groups[*]}")" "$user"
+  done
+fi
 
 echo "$VER" > "$STATE"
