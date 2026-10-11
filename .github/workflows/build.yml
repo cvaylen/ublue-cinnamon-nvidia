@@ -66,6 +66,16 @@ jobs:
           echo "IMAGE_REGISTRY=${IMAGE_REGISTRY,,}" >> ${GITHUB_ENV}
           echo "IMAGE_NAME=${IMAGE_NAME,,}" >> ${GITHUB_ENV}
 
+      - name: Install Cosign for base image verification
+        uses: sigstore/cosign-installer@6f9f17788090df1f26f669e9d70d6ae9567deba6 # v4.1.2
+        with:
+          cosign-release: 'v3.1.2'
+
+      # Newest ublue base whose signature verifies and was logged in Rekor at least 3 days ago
+      - name: Verify and pin base image
+        run: |
+          KEY=ublue-os.pub .github/scripts/pick-base.sh >> "$GITHUB_ENV"
+
       # This actually builds the container image
       - name: Build Image
         id: build-image
