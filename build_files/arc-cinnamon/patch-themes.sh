@@ -54,6 +54,10 @@ declare -A DARK=(
     [ASSETS]='dark-assets'
 )
 
+declare -A DARKER
+for k in "${!LIGHT[@]}"; do DARKER[$k]=${LIGHT[$k]}; done
+for k in SIDEBAR_FG SIDEBAR_FG_INSENSITIVE SIDEBAR_BG SIDEBAR_BORDER SIDEBAR_HOVER_BG SIDEBAR_ENTRY_BG SYSTEM_BUTTON_BG; do DARKER[$k]=${DARK[$k]}; done
+
 render() {
     local -n palette=$2
     local css=$THEMES/$3/cinnamon/cinnamon.css
@@ -77,3 +81,5 @@ for template in appmenu dialogs; do
     render $template DARK Arc-Darker
     render $template DARK Arc-Darker-solid
 done
+render cinnamenu DARKER Arc-Darker
+render cinnamenu DARKER Arc-Darker-solid

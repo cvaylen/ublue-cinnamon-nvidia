@@ -1,0 +1,42 @@
+
+.menu.gridmenu { border-image: none; background-color: @SIDEBAR_BG@; border: 1px solid @SIDEBAR_BORDER@; border-radius: 5px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); }
+
+.gridmenu .popup-menu-content { padding: 0; }
+
+.gridmenu .menu-applications-outer-box { padding: 10px 10px 0 0; color: @SIDEBAR_FG@; background-color: @SIDEBAR_BG@; border-radius: 4px; }
+
+.gridmenu.sidebar-left .gridmenu-middle-pane, .gridmenu.sidebar-right .gridmenu-middle-pane, .gridmenu.sidebar-bottom .gridmenu-middle-pane { padding-bottom: 10px; }
+
+.gridmenu.sidebar-top .gridmenu-middle-pane { padding-top: 10px; }
+
+.gridmenu .menu-applications-scrollbox { color: @FG@; background-color: @CONTENT_BG@; border: 1px solid @SIDEBAR_BORDER@; border-radius: 5px; }
+
+.gridmenu .menu-application-button-selected { color: @FG@; background-color: @CONTENT_SELECTED_BG@; border: 1px solid @ENTRY_BORDER@; }
+
+.gridmenu .menu-applications-scrollbox StScrollBar StBin#trough { background-color: rgba(255, 255, 255, 0.1); }
+
+.gridmenu .menu-applications-scrollbox StScrollBar StButton#vhandle { background-color: #b8babf; }
+
+.gridmenu .menu-applications-scrollbox StScrollBar StButton#vhandle:hover { background-color: #c7c9cd; }
+
+.gridmenu .menu-categories-box { padding: 6px; }
+
+.gridmenu.sidebar-bottom .menu-categories-scrollbox { min-width: 174px; }
+
+.gridmenu .menu-category-button { color: @SIDEBAR_FG@; }
+
+.gridmenu .menu-category-button-selected { color: @SIDEBAR_FG@; background-color: @SIDEBAR_HOVER_BG@; border: 1px solid @SIDEBAR_BORDER@; }
+
+.gridmenu .menu-category-button-greyed { color: @SIDEBAR_FG_INSENSITIVE@; }
+
+.gridmenu .gridmenu-sidebar-box, .gridmenu .menu-favorites-box { padding: 6px; color: @SIDEBAR_FG@; background-color: transparent; border: none; }
+
+.gridmenu .menu-favorites-button { color: @SIDEBAR_FG@; }
+
+.gridmenu .menu-favorites-button:hover { color: @SIDEBAR_FG@; background-color: @SIDEBAR_HOVER_BG@; border: 1px solid @SIDEBAR_BORDER@; }
+
+.gridmenu #menu-search-entry { color: @SIDEBAR_FG@; caret-color: @SIDEBAR_FG@; background-color: @SIDEBAR_ENTRY_BG@; border: 1px solid @SIDEBAR_BORDER@; }
+
+.gridmenu #menu-search-entry:focus, .gridmenu #menu-search-entry:hover { border: 1px solid #5294e2; }
+
+.gridmenu #menu-search-entry StLabel.hint-text { color: @SIDEBAR_FG_INSENSITIVE@; }
