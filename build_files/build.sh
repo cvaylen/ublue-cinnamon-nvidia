@@ -7,6 +7,11 @@ dnf5 -y group install cinnamon-desktop
 dnf5 -y install lightdm slick-greeter   # the group pulls slick-greeter but not lightdm itself
 dnf5 -y install arc-theme               # GTK, window border (metacity-1) and Cinnamon themes
 
+# Spices downloads crash on int(None) when the server omits Content-Length (linuxmint/cinnamon#13868).
+# No-op once Fedora's cinnamon package carries the upstream fix.
+sed -i "s/totalSize = int(response.headers.get('content-length'))/totalSize = int(response.headers.get('content-length') or 0)/" \
+    /usr/share/cinnamon/cinnamon-settings/bin/Spices.py
+
 systemctl enable lightdm.service
 systemctl set-default graphical.target
 
