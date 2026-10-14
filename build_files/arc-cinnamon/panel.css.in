@@ -1,0 +1,4 @@
+
+.workspace-button:hover { color: #ffffff; background-color: rgba(255, 255, 255, 0.12); border-radius: 2px; }
+
+.workspace-button:outlined:hover { color: #5294e2; }

@@ -73,7 +73,7 @@ render() {
 cp -a "$THEMES/Arc-Dark/cinnamon" "$THEMES/Arc-Darker/cinnamon"
 cp -a "$THEMES/Arc-Dark-solid/cinnamon" "$THEMES/Arc-Darker-solid/cinnamon"
 
-for template in appmenu dialogs calendar-events; do
+for template in appmenu dialogs calendar-events panel; do
     render $template LIGHT Arc
     render $template LIGHT Arc-solid
     render $template DARK Arc-Dark
