@@ -1,0 +1,60 @@
+
+.appmenu-category-button-greyed, .appmenu-category-button-selected, .appmenu-category-button, .appmenu-application-button-selected, .appmenu-application-button, .appmenu-sidebar-button { padding: 6px; spacing: 4px; border-radius: 3px; border: 1px solid transparent; }
+
+.appmenu-background .popup-menu-content { padding: 0; }
+
+.appmenu-main-box { spacing: 10px; }
+
+.appmenu-right-box { spacing: 5px; padding: 10px 10px; }
+
+.appmenu-categories-applications-box { spacing: 15px; }
+
+.appmenu-categories-applications-box:top { padding-top: 5px; }
+
+.appmenu-applications-box { padding-right: 5px; }
+
+.appmenu-search-box { spacing: 10px; }
+
+.appmenu-search-entry-icon { icon-size: 1.091em; }
+
+#appmenu-search-entry { padding: 7px; caret-size: 1px; caret-color: @FG@; selection-background-color: #5294e2; selected-color: #ffffff; transition-duration: 300ms; border-radius: 3px; color: @FG@; background-color: @ENTRY_BG@; border: 1px solid @ENTRY_BORDER@; }
+
+#appmenu-search-entry:focus, #appmenu-search-entry:hover { border: 1px solid #5294e2; }
+
+#appmenu-search-entry:insensitive { color: @FG_INSENSITIVE@; background-color: @ENTRY_INSENSITIVE_BG@; border: 1px solid @ENTRY_INSENSITIVE_BORDER@; }
+
+#appmenu-search-entry StLabel.hint-text { color: @FG_INSENSITIVE@; }
+
+.appmenu-application-button, .appmenu-category-button { color: @FG@; }
+
+.appmenu-application-button-label, .appmenu-category-button-label { padding: 0; }
+
+.appmenu-application-button-description { color: @FG_DIM@; }
+
+.appmenu-application-button:highlighted, .appmenu-application-button-selected:highlighted { font-weight: bold; }
+
+.appmenu-category-button:hover { background-color: rgba(82, 148, 226, 0.2); }
+
+.appmenu-application-button-selected, .appmenu-category-button-selected { color: #ffffff; background-color: #5294e2; border-color: #5294e2; }
+
+.appmenu-application-button-selected .appmenu-application-button-description { color: rgba(255, 255, 255, 0.8); }
+
+.appmenu-category-button-greyed { color: @FG_INSENSITIVE@; font-style: italic; }
+
+.appmenu-category-button-greyed StIcon { opacity: 0.5; }
+
+.appmenu-sidebar { padding: 10px 0px; color: @SIDEBAR_FG@; background-color: @SIDEBAR_BG@; border-radius: 3px 0 0 3px; border-right-width: 1px; border-color: @SIDEBAR_BORDER@; }
+
+.appmenu-sidebar-button { padding: 3px 6px; margin: 0 10px; color: @SIDEBAR_FG@; }
+
+.appmenu-sidebar-button:hover { background-color: @SIDEBAR_HOVER_BG@; border-color: @SIDEBAR_BORDER@; }
+
+.appmenu-system-box { spacing: 10px; }
+
+.appmenu-system-button { padding: 8.4px; color: @SIDEBAR_FG@; border: 1px solid @SIDEBAR_BORDER@; border-radius: 9999px; background-color: @SYSTEM_BUTTON_BG@; }
+
+.appmenu-system-button-lock:hover, .appmenu-system-button-logout:hover { color: #ffffff; background-color: #5294e2; border-color: #5294e2; }
+
+.appmenu-system-button-shutdown { color: #ffffff; background-color: #cc575d; border-color: #cc575d; }
+
+.appmenu-system-button-shutdown:hover { background-color: #F04A50; border-color: #F04A50; }
