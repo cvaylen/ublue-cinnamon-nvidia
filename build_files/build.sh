@@ -13,6 +13,11 @@ dnf5 -y install arc-theme               # GTK, window border (metacity-1) and Ci
 sed -i "s/totalSize = int(response.headers.get('content-length'))/totalSize = int(response.headers.get('content-length') or 0)/" \
     /usr/share/cinnamon/cinnamon-settings/bin/Spices.py
 
+sed -i \
+    -e 's/label_box.add(this.event_time, { expand: true, x_fill: true });/label_box.add(this.event_time, { expand: false, x_fill: false });/' \
+    -e 's/vbox.add(event_summary, { expand: true });/event_summary.x_expand = true;\n        label_box.insert_child_at_index(event_summary, 1);/' \
+    /usr/share/cinnamon/applets/calendar@cinnamon.org/eventView.js
+
 systemctl enable lightdm.service
 systemctl set-default graphical.target
 

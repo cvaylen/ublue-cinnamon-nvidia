@@ -1,0 +1,12 @@
+
+.calendar-events-main-box .calendar-events-scrollbox { margin-top: 22px; }
+
+.calendar-event-button { margin: 2px 0; }
+
+.calendar-event-color-strip { width: 4px; box-shadow: none; }
+
+.calendar-event-row-content { margin: 4px 8px; }
+
+.calendar-event-row-content #label-box { spacing: 10px; }
+
+.calendar-event-time-past, .calendar-event-time-present, .calendar-event-time-future, .calendar-event-countdown { margin-bottom: 0; }

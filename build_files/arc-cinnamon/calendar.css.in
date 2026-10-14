@@ -1,0 +1,18 @@
+
+.calendar { margin-right: 16px; padding: 0 6px 6px 6px; color: #383c45; background-color: @CONTENT_BG@; border: 1px solid @SIDEBAR_BORDER@; border-radius: 5px; }
+
+.calendar .calendar-month-label { color: #2f343f; }
+
+.calendar .calendar-day-heading { color: #5c616c; }
+
+.calendar .calendar-day, .calendar .calendar-not-today { color: #383c45; }
+
+.calendar .calendar-nonwork-day { color: #2f343f; }
+
+.calendar .calendar-not-today:selected { color: #2f343f; background-color: rgba(0, 0, 0, 0.12); }
+
+.calendar .calendar-week-number { color: #686d77; }
+
+.calendar .calendar-other-month-day { color: #8e939c; }
+
+.calendar .calendar-today { color: #ffffff; }
