@@ -15,4 +15,6 @@
 
 .calendar .calendar-other-month-day { color: #8e939c; }
 
+.calendar .calendar-day-base { border-radius: 4px; }
+
 .calendar .calendar-today { color: #ffffff; }
