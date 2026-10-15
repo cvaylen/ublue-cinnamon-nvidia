@@ -18,6 +18,10 @@ sed -i \
     -e 's/vbox.add(event_summary, { expand: true });/event_summary.x_expand = true;\n        label_box.insert_child_at_index(event_summary, 1);/' \
     /usr/share/cinnamon/applets/calendar@cinnamon.org/eventView.js
 
+sed -i \
+    -e 's/^        this.set_applet_label(label_string);$/        this.set_applet_label(label_string);\n        let [time, date] = label_string.split("\\n").map(s => s.trim());\n        if (date !== undefined) {\n            this._applet_label.clutter_text.set_markup(`${GLib.markup_escape_text(time, -1)}\\n<span size="smaller">${GLib.markup_escape_text(date, -1)}<\/span>`);\n            this._applet_label.style = "text-align: center;";\n        }/' \
+    /usr/share/cinnamon/applets/calendar@cinnamon.org/applet.js
+
 systemctl enable lightdm.service
 systemctl set-default graphical.target
 
