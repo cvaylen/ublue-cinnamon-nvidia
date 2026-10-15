@@ -1,4 +1,6 @@
 
+.calendar-events-main-box { margin-right: 0; padding-left: 15px; padding-right: 5px; }
+
 .calendar-events-main-box .calendar-events-scrollbox { margin-top: 22px; }
 
 .calendar-event-button { margin: 2px 0; }
