@@ -117,7 +117,8 @@ dnf5 -y install \
     gamemode \
     winetricks \
     vulkan-tools \
-    evtest
+    evtest \
+    input-remapper
 
 dnf5 -y install \
     distrobox \
@@ -146,6 +147,7 @@ systemctl mask systemd-remount-fs.service
 systemctl enable docker.socket
 systemctl enable podman.socket
 systemctl enable tailscaled.service
+systemctl enable input-remapper.service
 systemctl enable dx-groups.service
 systemctl enable system-flatpaks.service
 systemctl --global enable xmousepasteblock.service
