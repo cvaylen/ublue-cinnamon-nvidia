@@ -129,6 +129,13 @@ dnf5 -y install \
     lm_sensors \
     7zip 7zip-standalone \
     fira-code-fonts \
+    google-carlito-fonts \
+    google-crosextra-caladea-fonts \
+    dejavu-sans-fonts \
+    dejavu-serif-fonts \
+    dejavu-sans-mono-fonts \
+    google-roboto-fonts \
+    open-sans-fonts \
     vim-enhanced \
     fish
 
